@@ -3,7 +3,7 @@ enum TokenType {
     LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE, COMMA, DOT, SEMICOLON,
     SLASH, STAR, MINUS, PLUS,
     
-    //One or two cahracter tokens;
+    //One or two character tokens;
     BANG, BANG_EQUAL, 
     EQUAL, EQUAL_EQUAL,
     GREATER, GREATER_EQUAL, 

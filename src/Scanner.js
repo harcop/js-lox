@@ -25,6 +25,7 @@ class Scanner {
     }
 
     isAtEnd() {
+         
 
     }
 }
