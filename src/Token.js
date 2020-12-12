@@ -1,11 +1,12 @@
 class Token {
-    constructor(type, lexeme, line) {
+    constructor(type, lexeme, literal, line) {
         this.type = type;
         this.lexeme = lexeme;
+        this.literal = literal;
         this.line = line;
     }
 
     toString() {
-        return `${this.type} ${this.lexeme} ${this.line}`;
+        return `${this.type} ${this.lexeme} ${this.literal} ${this.line}`;
     }
 }
