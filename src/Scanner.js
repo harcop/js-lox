@@ -38,6 +38,18 @@ class Scanner {
 
     isAtEnd() {
          
+    }
+    advance() {
+        current++;
+        return source.charAt(current - 1);
+      }
+    
+    addToken(type) {
+        addToken(type, null);
+    }
 
+    addToken(type, literal) {
+        const text = source.substring(start, current);
+        tokens.push(new Token(type, text, literal, line));
     }
 }
