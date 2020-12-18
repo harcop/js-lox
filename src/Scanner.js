@@ -34,23 +34,23 @@ class Scanner {
             case ';': addToken(TokenType.SEMICOLON); break;
             case '*': addToken(TokenType.STAR); break; 
             case '!':
-                addToken(match('=') ? BANG_EQUAL : BANG);
+                addToken(match('=') ? TokenType.BANG_EQUAL : TokenType.BANG);
                 break;
             case '=':
-                addToken(match('=') ? EQUAL_EQUAL : EQUAL);
+                addToken(match('=') ? TokenType.EQUAL_EQUAL : TokenType.EQUAL);
                 break;
             case '<':
-                addToken(match('=') ? LESS_EQUAL : LESS);
+                addToken(match('=') ? TokenType.LESS_EQUAL : TokenType.LESS);
                 break;
             case '>':
-                addToken(match('=') ? GREATER_EQUAL : GREATER);
+                addToken(match('=') ? TokenType.GREATER_EQUAL : TokenType.GREATER);
                 break;
             case '/':
                 if (match('/')) {
                     // A comment goes until the end of the line.
                     while (peek() != '\n' && !isAtEnd()) advance();
                 } else {
-                    addToken(SLASH);
+                    addToken(TokenType.SLASH);
                 }
                 break;
             case ' ':
@@ -64,10 +64,31 @@ class Scanner {
                     break;
             case '"': string(); break;
             default:
-            Lox.error(line, "Unexpected character.");
+                if (isDigit(c)) {
+                    number();
+                  } else {
+                    Lox.error(line, "Unexpected character.");
+                  }
             break;
         }
     }
+
+    number() {
+        while (isDigit(peek())) advance();
+    
+        // Look for a fractional part.
+        if (peek() == '.' && isDigit(peekNext())) {
+          // Consume the "."
+          advance();
+    
+          while (isDigit(peek())) advance();
+        }
+    
+        addToken(TokenType.NUMBER,
+            // Double.parseDouble(source.substring(start, current)));
+            parseFloat(this.source.substring(start, current)));
+    }
+    
 
     string() {
         while (peek() != '"' && !isAtEnd()) {
@@ -99,10 +120,19 @@ class Scanner {
     peek() {
         if (isAtEnd()) return '\0';
         return source.charAt(current);
-      }
+    }
+
+    peekNext() {
+        if (current + 1 >= source.length()) return '\0';
+        return source.charAt(current + 1);
+    } 
+
+    isDigit(number) {
+        return number >= '0' && number <= '9';
+    } 
 
     isAtEnd() {
-         
+        return current >= source.length();
     }
 
     advance() {
