@@ -7,15 +7,15 @@ class Lox {
         if (process.argv.length > 3) {
             console.log(new Error("invalid lox invocation"))
         } else if (process.argv.length === 3) {
-            runFile(process.argv[2]);
+            this.runFile(process.argv[2]);
         } else {
-            runPrompt();
+            this.runPrompt();
         }
     }
 
     runFile(path) {
         const content = fs.readFileSync(path).toString();
-        run(content);
+        this.run(content);
     }
 
     runPrompt() {
@@ -25,7 +25,7 @@ class Lox {
             if (content === null) {
                 break;
             }
-            run(content);
+            this.run(content);
         }
     }
 

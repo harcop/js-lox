@@ -1,12 +1,12 @@
-class Token {
-    constructor(type, lexeme, literal, line) {
+module.exports = class Token {
+    constructor(type, text, literal, line) {
         this.type = type;
-        this.lexeme = lexeme;
+        this.text = text;
         this.literal = literal;
         this.line = line;
     }
 
     toString() {
-        return `${this.type} ${this.lexeme} ${this.literal} ${this.line}`;
+        return `${this.type}, ${this.text}, ${this.literal}, ${this.line}`;
     }
 }
